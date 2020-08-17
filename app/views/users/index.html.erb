@@ -1,0 +1,17 @@
+<% if @users.any? %>
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th class="text-center">ユーザー名</th>
+      <th class="text-center">設定地域</th>
+      <th class="text-center">詳細</th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td class="text-center"><%= user.name %></td>
+        <td class="text-center"><%= user.area.prefecture %></td>
+        <td class="text-center"><%= link_to 'ユーザー詳細', user_path(user) %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= paginate @users %>
+<% end %>

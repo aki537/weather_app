@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  def index
+    @users = User.order(id: :desc).page(params[:page]).per(25)
+  end
+
   def show
     @user = User.find(params[:id])
   end
@@ -19,18 +23,32 @@ class UsersController < ApplicationController
     end
   end
 
-  def destory
-
-  end
-
+  
   def edit
-
-  end
-
-  def upadate
-
+    @user = User.find(params[:id])
   end
   
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update(user_params)
+      flash[:success] = 'ユーザー情報を変更しました'
+      redirect_to @user
+    else
+      flash.now[:danger] = '変更に失敗しました'
+      render :edit
+    end
+  end
+  
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+
+    flash[:danger] = 'ユーザー情報を削除しました'
+    redirect_to root_url
+
+  end
+
   private
 
   def user_params
