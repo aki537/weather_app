@@ -22,9 +22,10 @@
       <%= render 'layouts/navbar' %>
 
       <div>
-        <%= render 'layouts/flash_messages' %>
-
-        <%= yield %>
+        <div class="main">
+          <%= render 'layouts/flash_messages' %>
+          <%= yield %>
+        </div>
       </div>
     </div>
   </body>

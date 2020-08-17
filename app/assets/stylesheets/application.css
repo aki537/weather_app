@@ -18,16 +18,23 @@
    background-color: rgba(0, 0, 0, 0.8);
  }
 
- .top-page {
-   position: relative;
-   padding-top: 56px;
+ header {
+   margin-bottom: 50px;
  }
 
- .top-text {
+ .top-page {
+   position: relative;
+ }
+
+ .top-page-text {
    position: absolute;
    top: 40%;
    left: 15%;
    font-size: 40px;
    color: black;
    opacity: 0.8;
+ }
+
+ .main {
+   margin-top: 100px;
  }
