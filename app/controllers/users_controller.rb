@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :require_user_logged_in, only: [:index, :show, :edit]
+
   def index
     @users = User.order(id: :desc).page(params[:page]).per(25)
   end
@@ -26,10 +28,12 @@ class UsersController < ApplicationController
   
   def edit
     @user = User.find(params[:id])
+    require_login_user
   end
   
   def update
     @user = User.find(params[:id])
+    require_login_user
 
     if @user.update(user_params)
       flash[:success] = 'ユーザー情報を変更しました'
@@ -42,6 +46,8 @@ class UsersController < ApplicationController
   
   def destroy
     @user = User.find(params[:id])
+    require_login_user
+    
     @user.destroy
 
     flash[:danger] = 'ユーザー情報を削除しました'
