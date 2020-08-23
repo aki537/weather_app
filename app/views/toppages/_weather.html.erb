@@ -1,0 +1,326 @@
+<div class="weather_area">
+  <div class="row">
+    <div class= "col-md-3 text-center " >
+      <div class= "card">
+        <div class= "card-header" >
+          <h4 class= "card-title" ><%= today %><h4>
+          <p><%= current_user.area.prefecture %></p>
+        </div>
+        <div class="card-body">
+          <p class="card-text">天気 : <%= @myarea["current"]["weather"][0]["description"] %></p>
+          <img class="img-fluid" src="/assets/weather_icon/<%= @myarea["current"]["weather"][0]["icon"] %>.png" alt="icon">
+          <p class="card-text">最高気温 : <%= @myarea["daily"][0]["temp"]["max"].to_i %>℃</p>
+          <p class="card-text">最低気温 : <%= @myarea["daily"][0]["temp"]["min"].to_i %>℃</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="todayfashion">
+        <p class="mb-4">今日の服装は・・・<span class="todayfashion"><%=fashion_comment(@myarea["daily"][0]["temp"]["max"].to_i) %></span> がおすすめ！<p>
+      </div>  
+      <div>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a href="#tab1" class="nav-link active" data-toggle="tab">3時間毎</a>
+          </li>
+          <li class="nav-item">
+            <a href="#tab2" class="nav-link" data-toggle="tab">明日</a>
+          </li>
+          <li class="nav-item">
+            <a href="#tab3" class="nav-link" data-toggle="tab">一週間</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="tab1"  class="tab-pane active">
+            <table class="table table-sm table-bordered text-center">
+              <thead>
+                <tr>
+                  <th scope="row">時刻</th>
+                  <td><%= hour_c(@myarea["hourly"][0]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][3]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][6]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][9]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][12]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][15]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][18]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][21]["dt"]) %>時</td>
+                </tr>
+                  
+              </thead>
+              <tr>
+                <th scope="row">天気</th>
+                  <td><%= @myarea["hourly"][0]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][0]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][3]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][3]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][6]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][6]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][9]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][9]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][12]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][12]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][15]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][15]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][18]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][18]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][21]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][21]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+              </tr>
+              <tr>
+                <th scope="row">気温</th>
+                <td><%= @myarea["hourly"][0]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][3]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][6]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][9]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][12]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][15]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][18]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][21]["temp"].to_i %></td>
+              </tr>
+              <tr>
+                <th scope="row">降水確率(%)</th>
+                <td><%= pop_h(0).to_i %></td>
+                <td><%= pop_h(3).to_i %></td>
+                <td><%= pop_h(6).to_i %></td>
+                <td><%= pop_h(9).to_i %></td>
+                <td><%= pop_h(12).to_i %></td>
+                <td><%= pop_h(15).to_i %></td>
+                <td><%= pop_h(18).to_i %></td>
+                <td><%= pop_h(21).to_i %></td>
+              </tr>
+              <tr>
+                <th scope="row">湿度</th>
+                <td><%= @myarea["hourly"][0]["humidity"] %></td>
+                <td><%= @myarea["hourly"][3]["humidity"] %></td>
+                <td><%= @myarea["hourly"][6]["humidity"] %></td>
+                <td><%= @myarea["hourly"][9]["humidity"] %></td>
+                <td><%= @myarea["hourly"][12]["humidity"] %></td>
+                <td><%= @myarea["hourly"][15]["humidity"] %></td>
+                <td><%= @myarea["hourly"][18]["humidity"] %></td>
+                <td><%= @myarea["hourly"][21]["humidity"] %></td>
+              </tr>
+              <tr>
+                <th scope="row">風速(m/s)</th>
+                <td><%= @myarea["hourly"][0]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][3]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][6]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][9]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][12]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][15]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][18]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][21]["wind_speed"].round %></td>
+              </tr>
+              <tr>
+                <th scope="row">風向</th>
+                <td><%= wind_deg(@myarea["hourly"][0]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][3]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][6]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][9]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][12]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][15]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][18]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][21]["wind_deg"]) %></td>
+              </tr>
+            </table>
+          </div>
+          <div id="tab2"  class="tab-pane">
+            <table class="table table-sm table-bordered text-center">
+              <thead>
+                <tr>
+                  <th scope="row">時刻</th>
+                  <td><%= hour_c(@myarea["hourly"][@y]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][@y+3]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][@y+6]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][@y+9]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][@y+12]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][@y+15]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][@y+18]["dt"]) %>時</td>
+                  <td><%= hour_c(@myarea["hourly"][@y+21]["dt"]) %>時</td>
+                </tr>
+                  
+              </thead>
+              <tr>
+                <th scope="row">天気</th>
+                  <td><%= @myarea["hourly"][@y]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][@y]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][@y+3]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][@y+3]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][@y+6]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][@y+6]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][@y+9]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][@y+9]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][@y+12]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][@y+12]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][@y+15]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][@y+15]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][@y+18]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][@y+18]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["hourly"][@y+21]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["hourly"][@y+21]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+              </tr>
+              <tr>
+                <th scope="row">気温</th>
+                <td><%= @myarea["hourly"][@y]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][@y+3]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][@y+6]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][@y+9]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][@y+12]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][@y+15]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][@y+18]["temp"].to_i %></td>
+                <td><%= @myarea["hourly"][@y+21]["temp"].to_i %></td>
+              </tr>
+              <tr>
+                <th scope="row">降水確率(%)</th>
+                <td><%= pop_h(@y).to_i %></td>
+                <td><%= pop_h(@y+3).to_i %></td>
+                <td><%= pop_h(@y+6).to_i %></td>
+                <td><%= pop_h(@y+9).to_i %></td>
+                <td><%= pop_h(@y+12).to_i %></td>
+                <td><%= pop_h(@y+15).to_i %></td>
+                <td><%= pop_h(@y+18).to_i %></td>
+                <td><%= pop_h(@y+21).to_i %></td>
+              </tr>
+              <tr>
+                <th scope="row">湿度</th>
+                <td><%= @myarea["hourly"][@y]["humidity"] %></td>
+                <td><%= @myarea["hourly"][@y+3]["humidity"] %></td>
+                <td><%= @myarea["hourly"][@y+6]["humidity"] %></td>
+                <td><%= @myarea["hourly"][@y+9]["humidity"] %></td>
+                <td><%= @myarea["hourly"][@y+12]["humidity"] %></td>
+                <td><%= @myarea["hourly"][@y+15]["humidity"] %></td>
+                <td><%= @myarea["hourly"][@y+18]["humidity"] %></td>
+                <td><%= @myarea["hourly"][@y+21]["humidity"] %></td>
+              </tr>
+              <tr>
+                <th scope="row">風速(m/s)</th>
+                <td><%= @myarea["hourly"][@y]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][@y+3]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][@y+6]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][@y+9]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][@y+12]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][@y+15]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][@y+18]["wind_speed"].round %></td>
+                <td><%= @myarea["hourly"][@y+21]["wind_speed"].round %></td>
+              </tr>
+              <tr>
+                <th scope="row">風向</th>
+                <td><%= wind_deg(@myarea["hourly"][@y]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][@y+3]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][@y+6]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][@y+9]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][@y+12]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][@y+15]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][@y+18]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["hourly"][@y+21]["wind_deg"]) %></td>
+              </tr>
+            </table>
+          </div>
+          <div id="tab3"  class="tab-pane">
+            <table class="table table-sm table-bordered text-center">
+              <thead>
+                <tr>
+                  <th scope="row">日付</th>
+                  <td><%= day_c(@myarea["daily"][0]["dt"]) %></td>
+                  <td><%= day_c(@myarea["daily"][1]["dt"]) %></td>
+                  <td><%= day_c(@myarea["daily"][2]["dt"]) %></td>
+                  <td><%= day_c(@myarea["daily"][3]["dt"]) %></td>
+                  <td><%= day_c(@myarea["daily"][4]["dt"]) %></td>
+                  <td><%= day_c(@myarea["daily"][5]["dt"]) %></td>
+                  <td><%= day_c(@myarea["daily"][6]["dt"]) %></td>
+                  <td><%= day_c(@myarea["daily"][7]["dt"]) %></td>
+                </tr>
+                  
+              </thead>
+              <tr>
+                <th scope="row">天気</th>
+                  <td><%= @myarea["daily"][0]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["daily"][0]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["daily"][1]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["daily"][1]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["daily"][2]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["daily"][2]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["daily"][3]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["daily"][3]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["daily"][4]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["daily"][4]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["daily"][5]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["daily"][5]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["daily"][6]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["daily"][6]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+                  <td><%= @myarea["daily"][7]["weather"][0]["description"]%>
+                      <p><img class="img-fluid" src="/assets/weather_icon/<%= @myarea["daily"][7]["weather"][0]["icon"] %>.png" alt="icon"></p></td>
+              </tr>
+              <tr>
+                <th scope="row">最高気温</th>
+                <td><%= @myarea["daily"][0]["temp"]["max"].to_i %></td>
+                <td><%= @myarea["daily"][1]["temp"]["max"].to_i %></td>
+                <td><%= @myarea["daily"][2]["temp"]["max"].to_i %></td>
+                <td><%= @myarea["daily"][3]["temp"]["max"].to_i %></td>
+                <td><%= @myarea["daily"][4]["temp"]["max"].to_i %></td>
+                <td><%= @myarea["daily"][5]["temp"]["max"].to_i %></td>
+                <td><%= @myarea["daily"][6]["temp"]["max"].to_i %></td>
+                <td><%= @myarea["daily"][7]["temp"]["max"].to_i %></td>
+              </tr>
+                <th scope="row">最低気温</th>
+                <td><%= @myarea["daily"][0]["temp"]["min"].to_i %></td>
+                <td><%= @myarea["daily"][1]["temp"]["min"].to_i %></td>
+                <td><%= @myarea["daily"][2]["temp"]["min"].to_i %></td>
+                <td><%= @myarea["daily"][3]["temp"]["min"].to_i %></td>
+                <td><%= @myarea["daily"][4]["temp"]["min"].to_i %></td>
+                <td><%= @myarea["daily"][5]["temp"]["min"].to_i %></td>
+                <td><%= @myarea["daily"][6]["temp"]["min"].to_i %></td>
+                <td><%= @myarea["daily"][7]["temp"]["min"].to_i %></td>
+              </tr>
+              <tr>
+                <th scope="row">降水確率(%)</th>
+                <td><%= pop_d(0).to_i %></td>
+                <td><%= pop_d(1).to_i %></td>
+                <td><%= pop_d(2).to_i %></td>
+                <td><%= pop_d(3).to_i %></td>
+                <td><%= pop_d(4).to_i %></td>
+                <td><%= pop_d(5).to_i %></td>
+                <td><%= pop_d(6).to_i %></td>
+                <td><%= pop_d(7).to_i %></td>
+              </tr>
+              <tr>
+                <th scope="row">湿度</th>
+                <td><%= @myarea["daily"][0]["humidity"] %></td>
+                <td><%= @myarea["daily"][1]["humidity"] %></td>
+                <td><%= @myarea["daily"][2]["humidity"] %></td>
+                <td><%= @myarea["daily"][3]["humidity"] %></td>
+                <td><%= @myarea["daily"][4]["humidity"] %></td>
+                <td><%= @myarea["daily"][5]["humidity"] %></td>
+                <td><%= @myarea["daily"][6]["humidity"] %></td>
+                <td><%= @myarea["daily"][7]["humidity"] %></td>
+              </tr>
+              <tr>
+                <th scope="row">風速(m/s)</th>
+                <td><%= @myarea["daily"][0]["wind_speed"].round %></td>
+                <td><%= @myarea["daily"][1]["wind_speed"].round %></td>
+                <td><%= @myarea["daily"][2]["wind_speed"].round %></td>
+                <td><%= @myarea["daily"][3]["wind_speed"].round %></td>
+                <td><%= @myarea["daily"][4]["wind_speed"].round %></td>
+                <td><%= @myarea["daily"][5]["wind_speed"].round %></td>
+                <td><%= @myarea["daily"][6]["wind_speed"].round %></td>
+                <td><%= @myarea["daily"][7]["wind_speed"].round %></td>
+              </tr>
+              <tr>
+                <th scope="row">風向</th>
+                <td><%= wind_deg(@myarea["daily"][0]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["daily"][1]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["daily"][2]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["daily"][3]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["daily"][4]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["daily"][5]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["daily"][6]["wind_deg"]) %></td>
+                <td><%= wind_deg(@myarea["daily"][7]["wind_deg"]) %></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+</div>
+

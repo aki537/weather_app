@@ -32,6 +32,7 @@ module WeatherApp
 
     config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
+    config.time_zone = 'Tokyo'
   end
 end
 

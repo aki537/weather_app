@@ -14,6 +14,10 @@
  *= require_self
  */
 
+body {
+  background-color: whitesmoke;
+}
+
  .bg-top {
    background-color: rgba(0, 0, 0, 0.8);
  }
@@ -30,11 +34,42 @@
    position: absolute;
    top: 40%;
    left: 15%;
-   font-size: 40px;
-   color: black;
+   font-size: 50px;
+   color:dimgray;
    opacity: 0.8;
+   font-style: italic;
  }
 
  .main {
    margin-top: 100px;
  }
+
+ .main-title {
+   font-size: 30px;
+   font-weight: bold;
+   text-decoration: underline;
+
+ }
+
+ .footer-text {
+   opacity: 0.8;
+ }
+
+ .todayfashion {
+   font-size: 18px;
+   margin-left: 30px;
+ }
+
+ .todayfashion span {
+   font-weight: bold;
+   font-size: 22px;
+ }
+
+ .table {
+   background-color: white;
+ }
+
+ .user_index {
+   background-color: whitesmoke;
+ }
+

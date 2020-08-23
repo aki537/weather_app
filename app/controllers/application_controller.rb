@@ -16,4 +16,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def weather_area(lat,lon)
+    url = "http://api.openweathermap.org/data/2.5/onecall"
+    api_key = ENV['API_KEY']
+
+    response = open(url + "?lat=#{lat}&lon=#{lon}&units=metric&exclude=minutely&lang=ja&APPID=#{api_key}")
+    JSON.parse(response.read)
+  end
+
 end
