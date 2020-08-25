@@ -57,11 +57,11 @@ module ApplicationHelper
   end
   
   def hour_c(time)
-    t = Time.at(time).hour
+    t = Time.zone.at(time).hour
   end
   
   def day_c(dt)
-    d = Time.at(dt)
+    d = Time.zone.at(dt)
     month = d.month
     mday = d.day
     day = "#{month}/#{mday}"
