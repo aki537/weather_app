@@ -1,0 +1,28 @@
+<ul class="list-group list-group-flush">
+  <% comments.each do |comment| %>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-sm-9">
+          <div>
+            <%= link_to comment.user.name, user_path(comment.user) %> 
+            <span class="ml-4">場所:<%= comment.area.prefecture %></span>
+            <span class="ml-2">気温:<%= comment.temp %>℃</span>
+            <span class="ml-2">湿度:<%= comment.humidity %>%</span>
+            <span class="ml-2">投稿時間:<%= comment.created_at.to_s(:datetime_jp) %></span>
+          </div>
+          <div class="mt-2">
+            <p><%= comment.content %></p>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="text-right mr-5 mt-4">
+            <% if current_user == comment.user %>
+              <%= link_to "Delete", comment, method: :delete, data: { confirm: "本当に削除してよろしいですか?" }, class: 'btn btn-danger btn-sm' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </li>
+  <% end %>
+  <%= paginate comments %>
+</ul>
