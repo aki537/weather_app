@@ -24,12 +24,10 @@ class Comment < ApplicationRecord
     Tornado: 14
   }
 
-  def area_identically
-    @current_user.area
-  end 
-  
-  def weather_similar(temp,humidity)
+  has_many :good ,dependent: :destroy
+  has_many :goodusers, through: :good, source: :user
+  has_many :bad ,dependent: :destroy
+  has_many :badusers, through: :bad, source: :user
 
-  end
 
 end

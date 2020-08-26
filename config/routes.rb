@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   resources :users
 
   resources :comments, only: [:create, :destroy]
+  resources :goods, only: [:create, :destroy]
+  resources :bads, only: [:create, :destroy]
 end
 

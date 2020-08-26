@@ -16,6 +16,47 @@
         </div>
         <div class="col-sm-3">
           <div class="text-right mr-5 mt-4">
+            <% if current_user.good?(comment) %>
+              <%= form_with(model: current_user.good.find_by(comment_id: comment.id), local: true, method: :delete) do |f| %>
+                <%= hidden_field_tag :comment_id, comment.id %>
+                <%= f.button :type => 'submit', style: 'border-style: none; background: none;' do %>
+                  <i class="fas fa-thumbs-up my-red"></i><span class="badge badge-secondary"><%= comment.goodusers.count %></span>
+                <% end %>
+              <% end %>
+              <%= form_with(model: current_user.bad.build, local: true) do |f| %>
+                <%= hidden_field_tag :comment_id, comment.id %>
+                <%= f.button :type => 'submit', style: 'border-style: none; background: none;' do %>
+                  <i class="far fa-thumbs-down"></i><span class="badge badge-secondary"><%= comment.badusers.count %></span>
+                <% end %>
+              <% end %>
+            <% elsif current_user.bad?(comment) %>
+              <%= form_with(model: current_user.good.build, local: true) do |f| %>
+                <%= hidden_field_tag :comment_id, comment.id %>
+                <%= f.button :type => 'submit', style: 'border-style: none; background: none;' do %>
+                  <i class="far fa-thumbs-up"></i><span class="badge badge-secondary"><%= comment.goodusers.count %></span>
+                <% end %>
+              <% end %>
+              <%= form_with(model: current_user.bad.find_by(comment_id: comment.id), local: true, method: :delete) do |f| %>
+                <%= hidden_field_tag :comment_id, comment.id %>
+                <%= f.button :type => 'submit', style: 'border-style: none; background: none;' do %>
+                  <i class="fas fa-thumbs-down my-blue"></i><span class="badge badge-secondary"><%= comment.badusers.count %></span>
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= form_with(model: current_user.good.build, local: true) do |f| %>
+                <%= hidden_field_tag :comment_id, comment.id %>
+                <%= f.button :type => 'submit', style: 'border-style: none; background: none;' do %>
+                  <i class="far fa-thumbs-up"></i><span class="badge badge-secondary"><%= comment.goodusers.count %></span>
+                <% end %>
+              <% end %>
+              <%= form_with(model: current_user.bad.build, local: true) do |f| %>
+                <%= hidden_field_tag :comment_id, comment.id %>
+                <%= f.button :type => 'submit', style: 'border-style: none; background: none;' do %>
+                  <i class="far fa-thumbs-up"></i><span class="badge badge-secondary"><%= comment.badusers.count %></span>
+                <% end %>
+              <% end %>
+
+            <% end %>
             <% if current_user == comment.user %>
               <%= link_to "Delete", comment, method: :delete, data: { confirm: "本当に削除してよろしいですか?" }, class: 'btn btn-danger btn-sm' %>
             <% end %>

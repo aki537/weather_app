@@ -24,6 +24,9 @@
     </div>
     <div class="mt-5">
       <h5>今と似た天気の時の投稿</h5>
+      <% if @comments_similar.blank? %>
+        <p>現在は投稿がありません。</p>
+      <% end %>
       <%= render 'comments/comments', comments: @comments_similar %>
     </div>
   </div>

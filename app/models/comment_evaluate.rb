@@ -1,0 +1,3 @@
+class CommentEvaluate < ApplicationRecord
+  
+end

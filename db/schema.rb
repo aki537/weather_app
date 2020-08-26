@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_25_052832) do
+ActiveRecord::Schema.define(version: 2020_08_26_113147) do
 
   create_table "areas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "prefecture", null: false
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(version: 2020_08_25_052832) do
     t.string "prefecture_r"
     t.decimal "lat", precision: 10, scale: 7
     t.decimal "lon", precision: 10, scale: 7
+  end
+
+  create_table "comment_evaluates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "comment_id"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_comment_evaluates_on_comment_id"
+    t.index ["user_id"], name: "index_comment_evaluates_on_user_id"
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -44,6 +54,8 @@ ActiveRecord::Schema.define(version: 2020_08_25_052832) do
     t.index ["area_id"], name: "index_users_on_area_id"
   end
 
+  add_foreign_key "comment_evaluates", "comments"
+  add_foreign_key "comment_evaluates", "users"
   add_foreign_key "comments", "areas"
   add_foreign_key "comments", "users"
   add_foreign_key "users", "areas"

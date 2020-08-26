@@ -24,4 +24,9 @@ class ApplicationController < ActionController::Base
     JSON.parse(response.read)
   end
 
+  def godcounts(comment)
+    @count_goods = comment.goodusers.count
+    @count_bads = comment.badusers.count
+  end
+
 end
