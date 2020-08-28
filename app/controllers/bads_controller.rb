@@ -6,7 +6,7 @@ class BadsController < ApplicationController
   end
 
   def destroy
-    nt.find(params[:comment_id])
+    comment = Comment.find(params[:comment_id])
     current_user.unbad(comment)
     redirect_back(fallback_location: root_path)
   end

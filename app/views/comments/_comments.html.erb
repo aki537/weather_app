@@ -52,7 +52,7 @@
               <%= form_with(model: current_user.bad.build, local: true) do |f| %>
                 <%= hidden_field_tag :comment_id, comment.id %>
                 <%= f.button :type => 'submit', style: 'border-style: none; background: none;' do %>
-                  <i class="far fa-thumbs-up"></i><span class="badge badge-secondary"><%= comment.badusers.count %></span>
+                  <i class="far fa-thumbs-down"></i><span class="badge badge-secondary"><%= comment.badusers.count %></span>
                 <% end %>
               <% end %>
 
