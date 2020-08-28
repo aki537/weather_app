@@ -12,5 +12,7 @@ Rails.application.routes.draw do
   resources :comments, only: [:create, :destroy]
   resources :goods, only: [:create, :destroy]
   resources :bads, only: [:create, :destroy]
+  resources :areas, only: [:show, :create, :new] 
+  get 'search', to: 'areas#new'
 end
 

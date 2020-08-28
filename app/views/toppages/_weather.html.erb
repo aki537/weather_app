@@ -4,7 +4,7 @@
       <div class= "card">
         <div class= "card-header" >
           <h4 class= "card-title" ><%= today %><h4>
-          <p><%= current_user.area.prefecture %></p>
+          <p><%= @area.prefecture %></p>
         </div>
         <div class="card-body">
           <p class="card-text">天気 : <%= @myarea["current"]["weather"][0]["description"] %></p>

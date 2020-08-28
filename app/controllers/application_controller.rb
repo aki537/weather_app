@@ -29,4 +29,28 @@ class ApplicationController < ActionController::Base
     @count_bads = comment.badusers.count
   end
 
+  def y_day
+    time = Time.current.tomorrow.midnight.to_i
+    lat = current_user.area.lat.to_f
+    lon = current_user.area.lon.to_f
+    yday = weather_area(lat,lon)
+    
+    array = (0..23).to_a
+    
+    array.each do |a|
+      if time <= yday["hourly"][a]["dt"]
+        return a
+      end
+
+    end
+  end
+
+  def similar_temp(n)
+    temp = @myarea["current"]["temp"].to_i + n
+  end
+
+  def similar_humidity(n)
+    humidity = @myarea["current"]["humidity"] + n
+  end
+  
 end
